@@ -25,4 +25,9 @@ public class UrlMapping {
     private LocalDateTime createdAt;
 
     private LocalDateTime expiresAt;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+    }
 }

@@ -38,17 +38,21 @@ public class UrlService {
 
         String code = (req.customAlias() != null && !req.customAlias().isBlank())
                 ? req.customAlias()
-                : generateUniqueCode(7);
+                : generateUniqueCode();
 
         if (urlRepo.findByShortCode(code).isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Alias en uso");
         }
 
+        LocalDateTime expiration = (req.expiresAt() != null)
+                ? req.expiresAt()
+                : LocalDateTime.now().plusDays(7);
+
         UrlMapping entity = UrlMapping.builder()
                 .originalUrl(req.originalUrl())
                 .shortCode(code)
                 .createdAt(LocalDateTime.now())
-                .expiresAt(req.expiresAt())
+                .expiresAt(expiration)
                 .build();
 
         urlRepo.save(entity);
@@ -56,9 +60,9 @@ public class UrlService {
         return new ShortenResponse(code, baseUrl + "/" + code, entity.getExpiresAt());
     }
 
-    private String generateUniqueCode(int len) {
+    private String generateUniqueCode() {
         for (int i = 0; i < 5; i++) {
-            String c = CodeGenerator.random(len);
+            String c = CodeGenerator.random(7);
             if (urlRepo.findByShortCode(c).isEmpty()) return c;
         }
         throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "No se pudo generar código único, reintentar");
@@ -73,7 +77,7 @@ public class UrlService {
             throw new ResponseStatusException(HttpStatus.GONE, "Link expirado");
         }
 
-        // Registrar el clic (lo básico; podés enriquecerlo más adelante)
+        // Registrar el clic
         ClickEvent ev = ClickEvent.builder()
                 .urlMapping(mapping)
                 .clickedAt(LocalDateTime.now())

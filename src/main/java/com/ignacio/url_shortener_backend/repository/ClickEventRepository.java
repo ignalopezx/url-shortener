@@ -8,4 +8,5 @@ import java.util.List;
 public interface ClickEventRepository extends JpaRepository<ClickEvent, Long> {
     long countByUrlMappingId(Long urlMappingId);
     List<ClickEvent> findTop100ByUrlMappingIdOrderByClickedAtDesc(Long urlMappingId);
+    long deleteByUrlMappingId(Long urlMappingId);
 }

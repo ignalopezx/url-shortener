@@ -1,24 +1,19 @@
-export type ShortenRequest = {
-  originalUrl: string;
-  customAlias?: string;
-  expiresAt?: string | null;
-};
-export type ShortenResponse = { code: string; shortUrl: string; expiresAt?: string | null };
-export type UrlItemDto = {
-  code: string;
-  originalUrl: string;
-  createdAt: string;
-  expiresAt?: string | null;
-  totalClicks: number;
-};
+import type { ShortenRequest, ShortenResponse, UrlItemDto, StatsResponse } from '../types/api';
 
 const BASE = import.meta.env.VITE_API_BASE ?? '/api';
 
-async function handleRes(res: Response) {
+async function handle(res: Response) {
   if (!res.ok) {
-    const t = await res.text();
-    throw new Error(t || res.statusText);
+    // Intentamos leer error del backend
+    let msg = res.statusText;
+    try {
+      const t = await res.text();
+      if (t) msg = t;
+    } catch { /* empty */ }
+    throw new Error(msg);
   }
+  // 204 No Content
+  if (res.status === 204) return null;
   return res.json();
 }
 
@@ -28,20 +23,20 @@ export async function shorten(body: ShortenRequest): Promise<ShortenResponse> {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
   });
-  return handleRes(res);
+  return handle(res);
 }
 
 export async function listAll(): Promise<UrlItemDto[]> {
   const res = await fetch(`${BASE}/urls`);
-  return handleRes(res);
+  return handle(res);
 }
 
 export async function deleteUrl(code: string): Promise<void> {
   const res = await fetch(`${BASE}/urls/${code}`, { method: 'DELETE' });
-  if (!res.ok) throw new Error('No se pudo eliminar');
+  await handle(res);
 }
 
-export async function stats(code: string) {
+export async function getStats(code: string): Promise<StatsResponse> {
   const res = await fetch(`${BASE}/urls/${code}/stats`);
-  return handleRes(res);
+  return handle(res);
 }

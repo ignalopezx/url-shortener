@@ -4,7 +4,7 @@ const BASE = import.meta.env.VITE_API_BASE ?? '/api';
 
 async function handle(res: Response) {
   if (!res.ok) {
-    // Intentamos leer error del backend
+    
     let msg = res.statusText;
     try {
       const t = await res.text();

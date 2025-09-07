@@ -18,7 +18,7 @@ export default function DarkModeToggle() {
       localStorage.setItem("theme", "dark")
     } else {
       htmlElement.classList.remove("dark")
-      localStorage.removeItem("theme") // 👈 ahora se borra
+      localStorage.removeItem("theme")
     }
   }, [dark])
 

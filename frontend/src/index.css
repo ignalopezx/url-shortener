@@ -4,12 +4,10 @@
 
 @layer base {
   * {
-    /* Removed border-border class that doesn't exist in Tailwind v3 */
     @apply border-gray-200;
   }
 
   body {
-    /* Replaced shadcn/ui variables with standard Tailwind classes */
     @apply bg-gray-50 text-gray-900;
     font-feature-settings: "rlig" 1, "calt" 1;
   }

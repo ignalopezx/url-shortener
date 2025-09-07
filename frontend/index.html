@@ -1,9 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>URL Shortener</title>
+    <script>
+      // Aplica dark solo si el usuario lo guardó explícitamente
+      if (localStorage.getItem("theme") === "dark") {
+        document.documentElement.classList.add("dark")
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

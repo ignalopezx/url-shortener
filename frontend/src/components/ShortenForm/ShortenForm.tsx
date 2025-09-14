@@ -3,7 +3,7 @@
 import type React from "react"
 import { useState } from "react"
 import { shorten } from "../../services/api"
-import type { ShortenResponse } from "../../types/api"
+import type { ShortenResponse } from "../../types/types"
 import { copy } from "../../utils/copy"
 import dayjs from "dayjs"
 import { QRCodeCanvas } from "qrcode.react"

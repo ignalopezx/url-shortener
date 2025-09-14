@@ -3,9 +3,10 @@
 import { useEffect, useMemo, useState } from "react"
 import { useParams, Link } from "react-router-dom"
 import { getStats } from "../services/api"
-import type { StatsResponse } from "../types/api"
+import type { StatsResponse } from "../types/types"
 import dayjs from "dayjs"
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts"
+import { formatDate } from "../utils/date"
 
 export default function StatsPage() {
   const { code } = useParams()
@@ -209,12 +210,12 @@ export default function StatsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
             <div>
               <span className="text-sm font-medium text-slate-600">Creado:</span>
-              <p className="text-slate-900 mt-1">{dayjs(data.createdAt).format("DD/MM/YYYY HH:mm")}</p>
+              <p className="text-slate-900 mt-1">{formatDate(data.createdAt)}</p>
             </div>
             <div>
               <span className="text-sm font-medium text-slate-600">Expira:</span>
               <p className="text-slate-900 mt-1">
-                {data.expiresAt ? dayjs(data.expiresAt).format("DD/MM/YYYY HH:mm") : "Sin expiración"}
+                {data.expiresAt ? formatDate(data.expiresAt) : "Sin expiración"}
               </p>
             </div>
           </div>
@@ -268,7 +269,6 @@ export default function StatsPage() {
             <thead className="bg-slate-50">
               <tr>
                 <th className="text-left px-6 py-4 text-sm font-semibold text-slate-700">Fecha y hora</th>
-                <th className="text-left px-6 py-4 text-sm font-semibold text-slate-700">IP</th>
                 <th className="text-left px-6 py-4 text-sm font-semibold text-slate-700">User Agent</th>
               </tr>
             </thead>
@@ -276,9 +276,8 @@ export default function StatsPage() {
               {data.lastClicks.map((c, i) => (
                 <tr key={i} className="hover:bg-slate-50 transition-colors">
                   <td className="px-6 py-4 text-sm text-slate-900">
-                    {dayjs(c.clickedAt).format("DD/MM/YYYY HH:mm:ss")}
+                    {formatDate(c.clickedAt)}
                   </td>
-                  <td className="px-6 py-4 text-sm font-mono text-slate-600">{c.ipAddress ?? "-"}</td>
                   <td className="px-6 py-4 text-sm text-slate-600 max-w-md">
                     <span className="break-all">
                       {c.userAgent?.slice(0, 100) ?? "-"}

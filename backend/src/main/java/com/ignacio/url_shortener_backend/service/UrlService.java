@@ -116,7 +116,7 @@ public class UrlService {
         long total = clickRepo.countByUrlMappingId(mapping.getId());
         List<ClickDto> last = clickRepo.findTop100ByUrlMappingIdOrderByClickedAtDesc(mapping.getId())
                 .stream()
-                .map(c -> new ClickDto(c.getClickedAt(), c.getIpAddress(), c.getUserAgent()))
+                .map(c -> new ClickDto(c.getClickedAt(), c.getUserAgent()))
                 .toList();
 
         return new StatsResponse(

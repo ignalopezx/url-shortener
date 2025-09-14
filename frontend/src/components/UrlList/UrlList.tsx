@@ -2,9 +2,10 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { listAll, deleteUrl } from "../../services/api"
-import type { UrlItemDto } from "../../types/api"
+import type { UrlItemDto } from "../../types/types"
 import dayjs from "dayjs"
 import { copy } from "../../utils/copy"
+import { formatDate } from "../../utils/date"
 import { Link } from "react-router-dom"
 
 //const SHORT_BASE = import.meta.env.VITE_SHORT_BASE ?? "http://localhost:8080"
@@ -190,7 +191,7 @@ export default function UrlList() {
                       </a>
                     </td>
                     <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
-                      {dayjs(it.createdAt).format("DD/MM/YY HH:mm")}
+                      {formatDate(it.createdAt)}
                     </td>
                     <td className="px-6 py-4 text-sm">
                       {it.expiresAt ? (
@@ -201,7 +202,7 @@ export default function UrlList() {
                               : "bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300"
                           }`}
                         >
-                          {dayjs(it.expiresAt).format("DD/MM/YY")}
+                          {formatDate(it.expiresAt)}
                         </span>
                       ) : (
                         <span className="text-slate-400 dark:text-slate-500">-</span>

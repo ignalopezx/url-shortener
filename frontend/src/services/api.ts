@@ -1,4 +1,4 @@
-import type { ShortenRequest, ShortenResponse, UrlItemDto, StatsResponse } from '../types/api';
+import type { ShortenRequest, ShortenResponse, UrlItemDto, StatsResponse } from '../types/types';
 
 const BASE = import.meta.env.VITE_API_BASE ?? '/api';
 

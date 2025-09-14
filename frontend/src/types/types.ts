@@ -21,7 +21,6 @@ export interface UrlItemDto {
 
 export interface ClickDto {
   clickedAt: string; // ISO
-  ipAddress?: string | null;
   userAgent?: string | null;
 }
 

@@ -138,7 +138,8 @@ public class UrlService {
                         m.getOriginalUrl(),
                         m.getCreatedAt(),
                         m.getExpiresAt(),
-                        clickRepo.countByUrlMappingId(m.getId())
+                        clickRepo.countByUrlMappingId(m.getId()),
+                        baseUrl + "/" + m.getShortCode()
                 ))
                 .toList();
     }

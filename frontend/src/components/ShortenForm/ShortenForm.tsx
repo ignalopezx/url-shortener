@@ -8,7 +8,7 @@ import { copy } from "../../utils/copy"
 import dayjs from "dayjs"
 import { QRCodeCanvas } from "qrcode.react"
 
-const SHORT_BASE = import.meta.env.VITE_SHORT_BASE ?? "http://localhost:8080"
+const SHORT_BASE = import.meta.env.VITE_SHORT_BASE ?? "https://url-shortener-1-9ih9.onrender.com"
 
 export default function ShortenForm() {
   const [originalUrl, setOriginalUrl] = useState("")

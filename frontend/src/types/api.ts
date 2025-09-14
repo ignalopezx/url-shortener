@@ -16,6 +16,7 @@ export interface UrlItemDto {
   createdAt: string; // ISO
   expiresAt?: string | null;
   totalClicks: number;
+  shortUrl: string;
 }
 
 export interface ClickDto {

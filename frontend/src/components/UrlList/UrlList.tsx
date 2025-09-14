@@ -7,7 +7,7 @@ import dayjs from "dayjs"
 import { copy } from "../../utils/copy"
 import { Link } from "react-router-dom"
 
-const SHORT_BASE = import.meta.env.VITE_SHORT_BASE ?? "http://localhost:8080"
+//const SHORT_BASE = import.meta.env.VITE_SHORT_BASE ?? "http://localhost:8080"
 
 export default function UrlList() {
   const [items, setItems] = useState<UrlItemDto[]>([])
@@ -168,7 +168,7 @@ export default function UrlList() {
             </thead>
             <tbody className="divide-y divide-slate-200 dark:divide-slate-600">
               {filtered.map((it) => {
-                const shortUrl = `${SHORT_BASE}/${it.code}`
+                const shortUrl = it.shortUrl
                 const isExpired = it.expiresAt && dayjs().isAfter(dayjs(it.expiresAt))
 
                 return (

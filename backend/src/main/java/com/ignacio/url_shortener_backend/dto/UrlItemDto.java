@@ -7,5 +7,6 @@ public record UrlItemDto(
         String originalUrl,
         LocalDateTime createdAt,
         LocalDateTime expiresAt,
-        long totalClicks
+        long totalClicks,
+        String shortUrl
 ) {}
